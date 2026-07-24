@@ -1,0 +1,32 @@
+{
+  "summary": "Backend-only tests for Research Run. 11/11 pytest tests passed in ~73s including the primary bug-fix scenario: uploaded /tmp/mtech.pdf, started SSE analysis, disconnected the client after 7s, then polled /api/paper/{id} until status='completed'. Verified analysis.summary.tldr, score.paper_score>0, gaps>=1, questions>=1, final_report>500 chars. SSE resume also verified (workflow_start + workflow_done/__end__ replayed).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_research_run.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py stats endpoint iterates over analyses to compute counts; fine for now but for large scale, MongoDB aggregation would be preferable.",
+    "agents.py _JOBS is an in-memory dict — background workflows are lost on backend restart. Consider persisting job state so an interrupted analysis can resume from DB after a restart.",
+    "subscribe() is an async generator; if a paper_id has no job registered, it silently returns (empty stream). Endpoint always starts a job when none exists so OK, but consider returning 404 in edge cases.",
+    "AnalysisResult model unused in _build_analysis_doc — doc is built as a raw dict; consider using the pydantic model for validation.",
+    "load_dotenv is called with explicit ROOT_DIR / '.env' — good."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "N/A"},
+  "test_credentials": "None required (no auth).",
+  "seed_data_creation": "Uploaded /tmp/mtech.pdf during test; deleted at the end via test_delete_paper.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Test file /app/backend/tests/test_research_run.py is idempotent — each run uploads mtech.pdf, runs full 10-agent analysis (~60-90s Groq real-time), then deletes the paper. Uses pytest-xdist with --junitxml. BASE_URL from REACT_APP_BACKEND_URL. Groq free tier TPM limits could cause flakiness under load; observed successful run in 73s.",
+  "rca of the issue": "Bug fix confirmed: analysis workflow runs as a detached asyncio Task in agents.py::start_workflow keyed on paper_id in _JOBS. SSE endpoint only subscribes to broadcasts; disconnecting the SSE client removes the subscriber queue but the background task keeps running and persists via on_agent_done/on_complete callbacks. Final status transitions uploaded -> analyzing -> completed as expected."
+}

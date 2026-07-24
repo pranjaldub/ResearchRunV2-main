@@ -1,0 +1,112 @@
+{
+  "typography": {
+    "headings": {
+      "family": "Space Grotesk",
+      "weights": ["300", "700"],
+      "tracking": "tracking-tighter",
+      "usage": "Use strictly for Hero text, Dashboard North-Star metrics, and major section titles."
+    },
+    "body": {
+      "family": "Inter",
+      "weights": ["400", "500"],
+      "tracking": "tracking-normal",
+      "usage": "Use for all reading content, tooltips, buttons, and general UI."
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "usage": "Use for Agent Execution console, live logs, JSON viewer, metrics, and equations."
+    },
+    "rules": [
+      "No generic 'Bold' for headers; use Light (font-light) for elegance or Bold (font-bold) with tight tracking.",
+      "Overlines must be uppercase, tiny (text-xs), and widely spaced (tracking-[0.2em]).",
+      "Never exceed text-6xl for main headings.",
+      "Use Lucide React icons for standard actions, or Phosphor icons for dense dashboard areas."
+    ]
+  },
+  "colors": {
+    "background": {
+      "main": "#09090B",
+      "card": "#111113",
+      "glass": "rgba(17, 17, 19, 0.65)"
+    },
+    "accents": {
+      "primary": "bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500",
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "error": "#EF4444"
+    },
+    "text": {
+      "primary": "#F9FAFB",
+      "secondary": "#A1A1AA",
+      "muted": "#71717A"
+    },
+    "borders": {
+      "default": "rgba(255, 255, 255, 0.08)",
+      "focus": "rgba(139, 92, 246, 0.5)"
+    },
+    "rules": [
+      "Use one saturated accent color for the main AI action.",
+      "Avoid pure black or pure white; tint neutrals. Here we use extremely dark indigo-tinted blacks (#09090B).",
+      "No generic full-screen gradients. Use gradients only for tracing beams, borders, text clips, or glowing node edges in React Flow."
+    ]
+  },
+  "visual_enhancers": {
+    "glassmorphism": "backdrop-blur-xl bg-[#09090B]/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)]",
+    "tracing_beam": "Implement animated gradient borders (purple/blue/pink) on active agent cards or currently executing tasks.",
+    "textures": "Use subtle noise overlays (opacity 2-4%) over empty background areas to kill digital flatness.",
+    "shadows": "Use soft ambient shadows rather than harsh drops, relying on background luminosity shifts for depth."
+  },
+  "components": {
+    "buttons": "Pill-shaped (rounded-full) or smooth rounded-lg. Add hover transforms (-translate-y-0.5) and soft glow effects for primary CTAs.",
+    "cards": "Rounded cards (rounded-xl) with #111113 background, 1px subtle white/5 border. Hover state slightly lifts card and brightens border to white/15.",
+    "inputs": "Shadcn defaults customized with glassmorphism backgrounds and purple-500/50 focus rings.",
+    "forms": "Left-aligned, highly readable, standard Shadcn form components."
+  },
+  "layouts": {
+    "landing_page": "Massive spacing (py-24, py-32). Abstract hero with tracking-tighter headlines. Bento grid for feature showcasing.",
+    "dashboard": "High Density Grid (Bento Protocol Mode B). North-star metric top-left, agent queue feed in center, stats on right.",
+    "workspace": "Split pane layout using resizable panels: Left side (PDF Viewer/Paper content), Center (React Flow Agent Graph), Right (Analysis Results and Live Logs).",
+    "spacing_scale": "Use 2-3x typical spacing (p-6, p-8 for cards). Containers with borders MUST have p-6 minimum internal padding to prevent text collision."
+  },
+  "motion": {
+    "transitions": "transition-transform duration-300 ease-out, transition-colors duration-200",
+    "animations": "Framer Motion for staggered list entrances, floating panels, and smooth layout changes.",
+    "microinteractions": "Hover states on all interactive elements. Click scale down (scale-95). Glow pulses on active AI agents."
+  },
+  "accessibility": {
+    "contrast": "Ensure APCA contrast standards. Minimum 4.5:1 for body text on dark backgrounds.",
+    "focus": "Visible focus rings on all interactive elements (keyboard navigation support).",
+    "motion": "Respect prefers-reduced-motion media query for all Framer Motion instances.",
+    "testing": "All interactive elements MUST include data-testid attribute (e.g., data-testid='upload-pdf-button')."
+  },
+  "media": {
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/14314636/pexels-photo-14314636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "Hero Background / Abstract Art",
+        "description": "Futuristic eye with complex network patterns. Use as a large graphic in the hero section or masked inside a bento grid cell representing 'Multi-Agent Intelligence'."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwxfHxkYXRhJTIwdmlzdWFsaXphdGlvbiUyMGRhcmslMjBtb2RlfGVufDB8fHx8MTc4NDg3MjkzMnww&ixlib=rb-4.1.0&q=85",
+        "category": "Features / Data Visualization",
+        "description": "Graphs of performance analytics on a dark screen. Use in the Landing page 'Features' bento grid or to illustrate 'Analysis History'."
+      }
+    ],
+    "rules": "Never use placeholder images. Render images with max-h-[80vh] on mobile. Use subtle mix-blend-modes (luminosity or screen) to integrate images cleanly into the dark theme."
+  },
+  "3d_libraries": {
+    "react_flow": "Use for Multi-Agent Execution Visualization. Configure dark theme nodes, animated dashed edges colored with the primary gradient, and glowing active states.",
+    "recharts": "Use for Dashboard Stats (Scores, metrics, gaps). Customize tooltips with glassmorphism backgrounds (bg-[#09090B]/80) and remove excessive grid/axis lines for a minimal look.",
+    "framer_motion": "Core animation library for layout transitions, floating command palettes, and interactive draggable elements."
+  },
+  "instructions_to_main_agent": [
+    "CRITICAL CONFLICT RESOLUTION: The user requested 'Material UI (MUI)', but the environment is strictly initialized with Tailwind CSS, React, and Shadcn UI. DO NOT install or use MUI. Achieve the requested 'elegant dark theme, glassmorphism, soft shadows, floating panels' using Tailwind CSS and customized Shadcn primitives.",
+    "Install required dependencies if missing: `yarn add framer-motion recharts reactflow lucide-react sonner`.",
+    "Implement a deep dark theme (bg-[#09090B]) with slightly lighter cards (bg-[#111113]). Use the requested Purple/Blue/Pink gradients ONLY as accents (e.g., active node edges, button hover states, small progress bars), never as flat large backgrounds.",
+    "For the Analysis Workspace, build a 3-pane layout: [PDF Viewer] | [React Flow Agent Graph] | [Rich Results Cards].",
+    "Use 'sonner' for toast notifications (e.g., 'Agent task completed', 'PDF uploaded').",
+    "Do NOT use HTML `<input type='date'>` or `<select>`. Use Shadcn forms exclusively.",
+    "All interactive elements MUST have a data-testid attribute in kebab-case."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight. Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients. Don't make generic centered layouts, simplistic gradients, and uniform styling. Create depth through layered design elements with z-index hierarchy. Use glass-morphism effects with backdrop filters (12-24px blur). You MUST NOT apply universal transition (e.g. transition: all), as this breaks transforms. Always add transitions for specific properties. You MUST NOT center align the app container. Always use modern button styles (pill-shaped or sharp) with interaction animations. NEVER use emojis as icons. Every interaction needs micro-animations. Use 2-3x more spacing than feels comfortable. Prioritize using pre-existing components from src/components/ui when applicable."
+}

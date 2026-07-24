@@ -1,0 +1,17 @@
+{
+  "summary": "Iteration 3 backend re-test after raising MAX_TOKENS budgets AND adding BadRequestError auto-retry with 2x token budget on json_validate_failed / max_tokens errors in _llm_call(). Extended pytest suite from 11 to 12 tests: added assertions for keywords >=1, methodology.strengths >=1, no workflow_error events in SSE replay, and a full 2nd analysis run on the same paper. All 12 tests passed in 30.66s. The full analysis run completed cleanly with tldr non-empty, paper_score>0, gaps>=1, keywords>=1, methodology.strengths>=1, questions>=1, final_report>400 chars, and ZERO workflow_error events observed in the SSE replay. The 2nd re-run over the same paper_id also completed successfully with no workflow_error. Standard endpoints (/api/upload, /api/papers, /api/paper/{id}, DELETE, /api/stats, /api/semantic-search, /api/search, /api/paper/{id}/pin) all pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/backend/tests/test_research_run.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "The BadRequestError retry loop in _llm_call() shares its counter (`retries=3`) with the 429 backoff path — a paper whose JSON keeps exceeding budget could still eventually fail, but the cap at 3500 tokens and doubling from >=450 gives good headroom.",
+    "agents.py is ~700 lines and mixes agent nodes, prompts, and orchestration — consider splitting into agents/ package (one file per node) for maintainability."
+  ],
+  "updated_files": ["/app/backend/tests/test_research_run.py"],
+  "success_rate": {"backend": "100% (12/12)", "frontend": "n/a (skipped per request)"},
+  "seed_data_creation": "Uploaded /tmp/mtech.pdf during test; deleted at end of run.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Pytest suite at /app/backend/tests/test_research_run.py now covers: basic endpoints, upload+SSE disconnect resilience, full analysis validation (tldr/score/gaps/keywords/methodology/questions/report), SSE replay without workflow_error, 2nd analysis run on same paper, and delete. Total ~31s on current Groq quota. The bug reported (400 json_validate_failed) did NOT reproduce — fix confirmed working."
+}
