@@ -345,8 +345,8 @@ app.include_router(api)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[o.strip() for o in os.environ.get("CORS_ORIGINS", "http://localhost:3000").split(",")],
-    allow_credentials=False,   # not needed — no cookies/auth headers used
+    allow_origin_regex=r"https://research-run-v2-main(-[a-z0-9]+)?-pranjaldub1999-7123\.vercel\.app",
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
